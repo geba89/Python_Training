@@ -1,5 +1,3 @@
-from tkinter.tix import InputOnly
-from sympy import true
 #from replit import clear
 
 bid_continue = True
