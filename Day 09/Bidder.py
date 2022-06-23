@@ -1,4 +1,4 @@
-#from replit import clear
+from replit import clear
 
 bid_continue = True
 bidders = {}
@@ -12,10 +12,9 @@ while bid_continue:
     stop_bidding = input("Any other bidders? (y/n)")
     if stop_bidding == "n":
         bid_continue = False
+    clear()
 
-for name in bidders:
-    print(name)
-    print(bidders[name])    
+for name in bidders:     
     if bidders[name] > bid:
         winner = name
         bid = bidders[name]
