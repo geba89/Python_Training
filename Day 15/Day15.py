@@ -37,12 +37,7 @@ resources = {
     "money" : 0
 }
 
-money = {
-    "quarter": 0.25,
-    "dime": 0.10,
-    "nickle": 0.05,
-    "penny" : 0.01
-}
+coffee_on = True
 
 def user_prompt():
     coffee = input("What would you like? (espresso/latte/cappuccino):")
@@ -65,8 +60,8 @@ def print_report(resources):
     for res, val in resources.items():
         print(f"{res} : {val}")
 
-def coffee_machine():
-    coffee = user_prompt()
+def coffee_machine(selected):
+    coffee = selected
     can_make = check_if_can_make_coffee(resources, MENU[coffee]["ingredients"])
     if can_make:
         money_entered = 0        
@@ -96,6 +91,16 @@ def coffee_machine():
     else:
         print("Sorry there are not enough resources in coffee machine")
 
-print_report(resources)
-coffee_machine()
-print_report(resources)
+while coffee_on:
+    choice = user_prompt()
+
+    if choice == "report":
+        print_report(resources)
+    elif choice == "off":
+        coffee_on = False
+    elif choice.lower() == "cappucino":
+        coffee_machine(choice)
+    elif choice.lower() == "latte":
+        coffee_machine(choice)
+    elif choice.lower() == "espresso":
+        coffee_machine(choice)
