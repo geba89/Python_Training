@@ -1,6 +1,9 @@
 import turtle
 
-trtl = turtle.Turtle()
+timmy = turtle.Turtle()
+screen = turtle.Screen()
 
-trtl.circle(5,5,5)
-turtle.exitonclick()
+timmy.shape("turtle")
+timmy.color("green")
+
+screen.exitonclick()
