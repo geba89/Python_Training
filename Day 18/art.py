@@ -20,8 +20,9 @@ screen.colormode(255)
 screen.screensize(300, 300)
 
 #setting up timmy
-timmy.speed("fastest")
+timmy.speed(0)
 timmy.penup()
+timmy.hideturtle()
 
 #move timmy to correct place so painting will be drawn in center
 timmy.setheading(180)
