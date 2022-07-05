@@ -12,8 +12,8 @@ here = os.path.dirname(os.path.abspath(__file__))
 filename = os.path.join(here, '20_001.jpg')
 colors = colorgram.extract(filename, 10)
 heading = "east"
-painting_size = 10
-dot_size = 30
+painting_size = 7
+dot_size = 17
 space_size = dot_size * 1.5
 #setting up screen
 screen.colormode(255)
@@ -23,12 +23,14 @@ screen.screensize(300, 300)
 timmy.speed("fastest")
 timmy.penup()
 
-#main loop
+#move timmy to correct place so painting will be drawn in center
 timmy.setheading(180)
 timmy.forward(painting_size * space_size/2)
 timmy.setheading(90)
 timmy.forward(painting_size * space_size/2)
 timmy.setheading(0)
+
+#start painting
 for i in range(painting_size):
     for j in range(painting_size):
         timmy.forward(space_size)
