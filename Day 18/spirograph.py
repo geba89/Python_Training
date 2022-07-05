@@ -23,7 +23,7 @@ timmy.pensize(2)
 timmy.speed(0)
 
 #main loop
-draw_circle(50)
+draw_circle(359)
 
 #finish it
 screen.exitonclick()

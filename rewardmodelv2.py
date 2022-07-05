@@ -19,34 +19,34 @@ def reward_function(params):
         reward = 3
     else:
         reward = 1e-3
-    # Give higher reward if the car is closer to center line and vice versa
-    #if distance_from_center <= marker_1:
-    #    reward = 1
-    #elif distance_from_center <= marker_2:
-    #    reward = 0.25
-    #else:
-    #    reward = 1e-3  # likely crashed/ close to off track
+    #Give higher reward if the car is closer to center line and vice versa
+    if distance_from_center <= marker_1:
+       reward = reward * 2
+    elif distance_from_center <= marker_2:
+       reward = reward * 1.5
+    else:
+       reward = 1e-3  # likely crashed/ close to off track
     
-    if abs(angle) > 20:
-        if speed > 1 and speed < 0.5:
-            reward = 1e-3
-        else:
-            reward = reward * 2
-    elif abs(angle) > 10:
-        if speed > 1.5 and speed < 0.8:
-            reward = 1e-3
-        else:
-            reward = reward * 2
-    elif abs(angle) >= 5:
-        if speed > 2 and speed < 1:
-            reward = 1e-3
-        else:
-            reward = reward * 2
-    elif abs(angle) < 5:
-        if speed > 3 and speed < 2:
-            reward = 1e-3
-        else:
-            reward = reward * 2
+    # if abs(angle) > 20:
+    #     if speed > 1 and speed < 0.5:
+    #         reward = 1e-3
+    #     else:
+    #         reward = reward * 2
+    # elif abs(angle) > 10:
+    #     if speed > 1.5 and speed < 0.8:
+    #         reward = 1e-3
+    #     else:
+    #         reward = reward * 2
+    # elif abs(angle) >= 5:
+    #     if speed > 2 and speed < 1:
+    #         reward = 1e-3
+    #     else:
+    #         reward = reward * 2
+    # elif abs(angle) < 5:
+    #     if speed > 3 and speed < 2:
+    #         reward = 1e-3
+    #     else:
+    #         reward = reward * 2
 
 
     return float(reward)
