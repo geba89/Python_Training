@@ -46,6 +46,6 @@ while game_on:
 if winning_turtle.color()[0] == user_bet:
     print("Congratulation you have won!")
 else:
-    print("You lost!")
-
+    print(f"You lost! {winning_turtle.color()[0]} turtle won")
+ 
 screen.exitonclick()
