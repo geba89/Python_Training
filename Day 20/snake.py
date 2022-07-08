@@ -10,6 +10,7 @@ class Snake:
         self.head = None
         self.create_snake()
         self.set_head()
+        self.speed = 20
     
     def set_head(self):
         self.head = self.snake[0]
@@ -36,16 +37,18 @@ class Snake:
         new_part.setpos(last_pos)    
         return new_part
 
-    def follow(self):    
-        prev_follower = self.head
-        new_position = prev_follower.position()
-        self.head.forward(20)   
-        for follower in self.snake:
-            if follower == self.head:
-                continue
-            prev_position = follower.position()
-            follower.goto(new_position)
-            new_position = prev_position
+    def follow(self, pause):    
+        if pause:     
+            prev_follower = self.head
+            new_position = prev_follower.position()
+            self.head.forward(20)   
+            for follower in self.snake:
+                if follower == self.head:
+                    continue
+                prev_position = follower.position()
+                follower.goto(new_position)
+                new_position = prev_position
+        
 
     def turn_right(self):
         self.head.right(90)

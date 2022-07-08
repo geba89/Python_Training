@@ -9,6 +9,11 @@ import scoreboard
 game_on = True
 points = 0
 score = scoreboard.Scoreboard()
+pause = False
+
+def set_pause():
+    global pause
+    pause = not pause
 
 #initialize screen and set it up
 screen = Screen()
@@ -29,6 +34,7 @@ screen.listen()
 screen.onkey(my_snake.turn_right, 'd')
 screen.onkey(my_snake.turn_left, 'a')
 screen.onkey(my_snake.increase_snake_size, 'c')
+screen.onkey(set_pause, 'p')
 
 food1 = food.Food()
 food1.spawn()
@@ -41,7 +47,7 @@ while game_on:
         points += 1
         score.write_score(points)
     my_snake.set_last_part()   
-    my_snake.follow()    
+    my_snake.follow(pause)    
     time.sleep(0.1)
     screen.update()
 
@@ -61,5 +67,6 @@ while game_on:
         game_on = False
     
 score.game_over(points)
+
 #exit
 screen.exitonclick()
