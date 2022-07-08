@@ -55,6 +55,11 @@ class Snake:
 
     def set_last_part(self):
         self.last_part = self.snake[len(self.snake)-1]
-        
+
     def get_head_position(self):
         return self.head.position()
+
+    def check_collision_with_tail(self):
+        for _ in range(1, len(self.snake)-1):
+            if self.head.distance(self.snake[_]) < 5:
+                return True

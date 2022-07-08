@@ -1,11 +1,14 @@
+from asyncore import write
 from turtle import Screen
 import time
 import food
 from snake import Snake
+import scoreboard
 
 #variables
 game_on = True
 points = 0
+score = scoreboard.Scoreboard()
 
 #initialize screen and set it up
 screen = Screen()
@@ -13,6 +16,8 @@ screen.setup(600, 600)
 screen.bgcolor("black")
 screen.title("Snake Game")
 screen.tracer(0)
+score.write_score(points)
+
 
 #create snake and refresh screen
 my_snake = Snake()
@@ -34,10 +39,27 @@ while game_on:
         my_snake.increase_snake_size()
         food1.spawn()
         points += 1
+        score.write_score(points)
     my_snake.set_last_part()   
     my_snake.follow()    
     time.sleep(0.1)
     screen.update()
 
+    #check if outside of map and go to other part of map:
+    if my_snake.head.position()[0] > 300.00:
+        my_snake.head.goto(-300.00, (my_snake.head.position()[1])) 
+    elif my_snake.head.position()[0] < -300.00:
+        my_snake.head.goto(300.00, (my_snake.head.position()[1])) 
+    elif my_snake.head.position()[1] > 300.00:
+        my_snake.head.goto((my_snake.head.position()[0], -300))
+    elif my_snake.head.position()[1] < -300.00:
+        my_snake.head.goto((my_snake.head.position()[0], 300)) 
+
+    #check collision with tail:
+    collided = my_snake.check_collision_with_tail()
+    if collided:
+        game_on = False
+    
+score.game_over(points)
 #exit
 screen.exitonclick()
