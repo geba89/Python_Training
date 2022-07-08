@@ -55,3 +55,6 @@ class Snake:
 
     def set_last_part(self):
         self.last_part = self.snake[len(self.snake)-1]
+        
+    def get_head_position(self):
+        return self.head.position()
