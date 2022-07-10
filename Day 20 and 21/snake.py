@@ -48,7 +48,7 @@ class Snake:
                 prev_position = follower.position()
                 follower.goto(new_position)
                 new_position = prev_position
-        
+         
 
     def turn_right(self):
         self.head.right(90)
