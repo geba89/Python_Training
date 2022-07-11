@@ -14,6 +14,7 @@ class Snake:
     
     def set_head(self):
         self.head = self.snake[0]
+        self.head.color("green")
 
     def create_snake(self):
         for _ in range(3):
@@ -22,7 +23,7 @@ class Snake:
             new_part.color("white")
             new_part.setpos(x=(self.initial_pos, 0.00))
             self.initial_pos -= 20.00
-            self.snake.append(new_part)
+            self.snake.append(new_part)            
 
     def increase_snake_size(self):
         last_pos = self.snake[len(self.snake)-1].position()
@@ -63,6 +64,13 @@ class Snake:
         return self.head.position()
 
     def check_collision_with_tail(self):
-        for _ in range(1, len(self.snake)-1):
-            if self.head.distance(self.snake[_]) < 5:
+        for i in range(1, len(self.snake)):           
+            if self.head.distance(self.snake[i]) < 15:                
                 return True
+    def reset_snake(self):
+        for part in self.snake:
+            part.goto(10000, 10000)        
+        self.snake.clear()
+        self.create_snake()
+        self.set_head()
+        print("Snake reset")

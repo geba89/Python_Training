@@ -15,6 +15,10 @@ def set_pause():
     global pause
     pause = not pause
 
+def quit_game():
+    global game_on
+    game_on = False
+
 #initialize screen and set it up
 screen = Screen()
 screen.setup(600, 600)
@@ -35,12 +39,13 @@ screen.onkey(my_snake.turn_right, 'd')
 screen.onkey(my_snake.turn_left, 'a')
 screen.onkey(my_snake.increase_snake_size, 'c')
 screen.onkey(set_pause, 'p')
+screen.onkey(quit_game, 'q')
 
 food1 = food.Food()
 food1.spawn()
 
 #game loopaaa
-while game_on:  
+while game_on:      
     if food1.distance(my_snake.head) <= 5:
         my_snake.increase_snake_size()
         food1.spawn()
@@ -64,9 +69,13 @@ while game_on:
     #check collision with tail:
     collided = my_snake.check_collision_with_tail()
     if collided:
-        game_on = False
+        my_snake.reset_snake()
+        points = 0
+        score.write_score(points)
+        score.write_highscore()
     
 score.game_over(points)
+score.write_highscore()
 
 #exit
 screen.exitonclick()
