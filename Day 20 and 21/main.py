@@ -1,4 +1,3 @@
-from asyncore import write
 from turtle import Screen
 import time
 import food

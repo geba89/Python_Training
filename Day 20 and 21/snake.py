@@ -14,7 +14,7 @@ class Snake:
     
     def set_head(self):
         self.head = self.snake[0]
-        self.head.color("green")
+        self.head.color("bisque1")
 
     def create_snake(self):
         for _ in range(3):
