@@ -29,7 +29,7 @@ class Scoreboard(turtle.Turtle):
             self.highscore = score
 
     def get_highscore(self):
-        file = open('../score.txt')
+        file = open('Day 20 and 21/score.txt')
         score_read = file.read()
         file.close()
         return int(score_read)
