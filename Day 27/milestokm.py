@@ -15,16 +15,17 @@ def convert():
     miles = float(input_field.get())
     label2['text'] = f"{miles * 1.8}"
 
-window.minsize(200, 200)
+window.minsize(250, 100)
+window.maxsize(600, 600)
 
-label.pack()
+label.grid(columnspan=2, row=0,)
 label['text'] = "Please enter miles to convert to KM"
 input_field['width'] = 20
-input_field.pack()
+input_field.grid(column=0, row=1)
 button['text'] = "Convert"
 button['command'] = convert
-button.pack()
-label2.pack()
+button.grid(column=1, row=1)
+label2.grid(columnspan=2, row=2)
 
 
 
