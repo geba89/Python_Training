@@ -1,7 +1,32 @@
 from tkinter import *
-
+from tkinter import messagebox
+import random
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+def generate_password():
+
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+
+    nr_letters = random.randint(8, 10)
+    nr_symbols = random.randint(2, 4)
+    nr_numbers = random.randint(2, 4)
+
+
+    password_letters = [random.choice(letters) for item in range(nr_letters)]
+    password_symbols = [random.choice(symbols) for item in range(nr_symbols)]
+    password_numbers = [random.choice(numbers) for item in range(nr_numbers)]
+    password_list = password_letters + password_numbers + password_symbols
+
+    random.shuffle(password_list)
+
+    password = ""
+    for char in password_list:
+        password += char
+
+    pass_input.delete(0, END)
+    pass_input.insert(0, password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def append_password_file(new_entry):
@@ -13,8 +38,14 @@ def create_entry():
     website = web_input.get()
     email_address = email_input.get()
     password = pass_input.get()
+    if website == "" or email_address == "" or password == "":
+        messagebox.showerror(title="Failed.", message="Please fill all fields.")
+        return
+
     new_entry = f"{website} | {email_address} | {password} \n"
     append_password_file(new_entry)
+
+    messagebox.showinfo(title="Success", message="Password added!")
 
     web_input.delete(0, END)
     pass_input.delete(0, END)
@@ -51,7 +82,7 @@ email_input.grid(row=2, column=1, columnspan=2)
 pass_input = Entry(width=24)
 pass_input.grid(row=3, column=1)
 
-generate_button = Button(text="Generate Password")
+generate_button = Button(text="Generate Password", command=generate_password)
 generate_button.grid(row=3, column=2)
 
 add_button = Button(text="Add", width=41, command=create_entry)
