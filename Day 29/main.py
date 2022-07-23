@@ -1,7 +1,9 @@
+from encodings import search_function
 from tkinter import *
 from tkinter import messagebox
 import random
 import pyperclip
+import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 def generate_password():
@@ -30,9 +32,19 @@ def generate_password():
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
 def append_password_file(new_entry):
-    file = open('Day 29/mypass.txt', 'a')
-    file.write(new_entry)
-    file.close()
+    try:
+        with open('Day 29/mypass.json', 'r') as file:        
+            all_data = json.load(file)
+            all_data.update(new_entry)
+        
+        with open('Day 29/mypass.json', 'w') as file:        
+            json.dump(all_data, file, indent=True)
+        
+    except FileNotFoundError:
+        with open('Day 29/mypass.json', 'w') as file:        
+            json.dump(new_entry, file, indent=True)
+        
+    
 
 def create_entry():
     website = web_input.get()
@@ -42,7 +54,7 @@ def create_entry():
         messagebox.showerror(title="Failed.", message="Please fill all fields.")
         return
 
-    new_entry = f"{website} | {email_address} | {password} \n"
+    new_entry = {website : {"email" : email_address, "password" : password}}    
     append_password_file(new_entry)
 
     messagebox.showinfo(title="Success", message="Password added!")
@@ -50,6 +62,16 @@ def create_entry():
     web_input.delete(0, END)
     pass_input.delete(0, END)
 
+def search_password():
+    with open('Day 29/mypass.json', 'r') as file:
+        try:
+            all_data = json.load(file)
+            website_data = all_data[web_input.get()]
+            password = website_data["password"]
+            email = website_data["email"]
+            messagebox.showinfo(title="Webiste Data", message=f"Password: {password}\n Email: {email}")
+        except KeyError:
+            messagebox.showwarning(title="No Data", message=f"No data for {web_input.get()} found.")
 # ---------------------------- UI SETUP ------------------------------- #
 
 
@@ -72,8 +94,8 @@ email_label.grid(row=2, column=0)
 pass_label = Label(text="Password:")
 pass_label.grid(row=3, column=0)
 
-web_input = Entry(width=44)
-web_input.grid(row=1, column=1, columnspan=2)
+web_input = Entry(width=24)
+web_input.grid(row=1, column=1)
 
 email_input = Entry(width=44)
 email_input.insert(0,"geba89@gmail.com")
@@ -87,5 +109,8 @@ generate_button.grid(row=3, column=2)
 
 add_button = Button(text="Add", width=41, command=create_entry)
 add_button.grid(row=4, column=1, columnspan=2)
+
+search_button = Button(text="Search", width=16, command=search_password)
+search_button.grid(row=1, column=2)
 
 window.mainloop()

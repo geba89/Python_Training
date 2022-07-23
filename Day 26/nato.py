@@ -8,6 +8,9 @@ for (index, row) in data_frame.iterrows():
     nato[row.letter] = row.code
 
 user_text = input("Enter word: ")
-output_list = [nato[letters.upper()] for letters in user_text]
+try:
+    output_list = [nato[letters.upper()] for letters in user_text]
+    print(output_list)
+except KeyError:
+    print("Sorry only letters.")
 
-print(output_list)
