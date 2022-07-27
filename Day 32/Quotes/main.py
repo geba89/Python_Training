@@ -17,7 +17,7 @@ if day_of_the_week == 1:
     with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
         random_quote = random.choice(quotes)
         connection.starttls()
-        connection.login(user=email_address, password="nkxgxpcxstfvkvkc")
+        connection.login(user=email_address, password="")
         connection.sendmail(from_addr=email_address, to_addrs="gebskipiotr@gmail.com", msg=f"Subject: Motivation Monday! \n\n {random_quote}",)
        
 
