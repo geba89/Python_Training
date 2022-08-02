@@ -36,10 +36,11 @@ for city in sheety_data:
     for flight in flights:
         if flight['price'] < cheapest_price:
             cheapest_price = flight['price']
+            cheapest_transfers = [len(flight['route'])-2]
             cheapest_destination = flight['cityTo']
             cheapest_link = flight['deep_link']
             cheapest_departure = dt.datetime.strptime(flight['route'][0]['local_departure'], "%Y-%m-%dT%H:%M:%S.000Z").strftime('%Y/%m/%d')
-            cheapest_arrival = dt.datetime.strptime(flight['route'][1]['local_departure'], "%Y-%m-%dT%H:%M:%S.000Z").strftime('%Y/%m/%d') 
+            cheapest_arrival = dt.datetime.strptime(flight['route'][len(flight['route'])-1]['local_departure'], "%Y-%m-%dT%H:%M:%S.000Z").strftime('%Y/%m/%d') 
     if city['lowestPrice'] > cheapest_price:
-        message_body = f'We have found a cheapest flight from Warsaw to {cheapest_destination} priced: {cheapest_price}. From:{cheapest_departure} - To:{cheapest_arrival}'
+        message_body = f'We have found a cheapest flight from Warsaw to {cheapest_destination} priced: {cheapest_price}. From:{cheapest_departure} - To:{cheapest_arrival}. Transfers between: {cheapest_transfers}. Link: {cheapest_link}'
         sms_manager.send_notification(message_body)

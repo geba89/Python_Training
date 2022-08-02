@@ -16,7 +16,7 @@ class FlightSearch:
 
     def get_all_flights_to_airport(self, airport):
         today = dt.datetime.today()
-        next_date = today + dt.timedelta(days=180)
+        next_date = today + dt.timedelta(days=30)
         body = {'fly_from':"WAW",
                 'fly_to':airport,
                 'date_from':today.strftime('%d/%m/%Y'),
