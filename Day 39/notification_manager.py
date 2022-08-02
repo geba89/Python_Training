@@ -4,7 +4,7 @@ import os
 
 class NotificationManager:
     def __init__(self):
-        self.sid = 'AC775b092a1170804db07ba67fe6a85488'
+        self.sid = os.environ.get('TWILIO_SID')
         self.token = os.environ.get('TWILIO_TOKEN')
         self.messaging_service_sid = 'MGca6e1b32002184d2d6dbdb078e3d8efd'
         self.tel_number = +48512704484
