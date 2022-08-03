@@ -14,17 +14,20 @@ class FlightSearch:
         resposne = requests.get(self.kiwi_location_api_endpoint, params=body, headers=header)
         return resposne.json()['locations'][0]['code']
 
-    def get_all_flights_to_airport(self, airport):
+    def get_all_flights_to_airport(self, airport_to, airport_from, infants, adults, stopovers, min_nights, max_nights, days_to):
         today = dt.datetime.today()
-        next_date = today + dt.timedelta(days=30)
-        body = {'fly_from':"WAW",
-                'fly_to':airport,
+        next_date = today + dt.timedelta(days=days_to)
+        body = {'fly_from':airport_from,
+                'fly_to':airport_to,
                 'date_from':today.strftime('%d/%m/%Y'),
                 'date_to':next_date.strftime('%d/%m/%Y'),
                 'vehicle_type':'aircraft',
-                'nights_in_dst_from':3,
-                'nights_in_dst_to':7,
-                'flight_type':'round'}
+                'nights_in_dst_from':min_nights,
+                'nights_in_dst_to':max_nights,
+                'flight_type':'round',
+                'adults':adults,
+                'infants':infants,
+                'max_stopovers':stopovers}
         header = {'apikey':self.kiwi_api_key}
         response = requests.get(self.kiwi_search_api_endpoint, params=body, headers=header)
         return response.json()['data']
